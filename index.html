@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Schema Web Design - Propuesta Comercial</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: headerGlow 8s ease-in-out infinite;
+        }
+        
+        @keyframes headerGlow {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
+        
+        .logo {
+            font-size: 3.2em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.4em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+        .section:nth-child(5) { animation-delay: 0.8s; }
+        .section:nth-child(6) { animation-delay: 1s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section h2 {
+            color: white;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            border-bottom: 4px solid transparent;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            padding: 20px 25px 15px 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .section h2::before {
+            content: '◆';
+            color: white;
+            margin-right: 15px;
+            font-size: 0.7em;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            border-left: 6px solid #667eea;
+            padding: 35px;
+            border-radius: 16px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .highlight-box h2 {
+            border: none;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 25px 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.3);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: cardGlow 4s linear infinite;
+        }
+        
+        @keyframes cardGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.95;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+        
+        .project-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .project-card:hover::before {
+            left: 100%;
+        }
+        
+        .project-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .project-name {
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        
+        .project-location {
+            color: #718096;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .service-item {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .service-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-item:hover {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .process-timeline {
+            position: relative;
+            padding: 30px 0;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: 35px;
+            top: 80px;
+            width: 3px;
+            height: calc(100% + 20px);
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        .process-step:last-child::before {
+            display: none;
+        }
+
+        .step-number {
+            min-width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.4em;
+            margin-right: 25px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            border: 4px solid white;
+        }
+
+        .step-content {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .step-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #1a202c;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .step-description {
+            color: #718096;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .tech-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #a855f7);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .tech-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tech-card:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .tech-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-card:hover .tech-icon {
+            transform: scale(1.1);
+        }
+
+        .tech-name {
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .tech-description {
+            color: #718096;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+        
+        .pricing-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            margin: 35px 0;
+        }
+        
+        .pricing-header {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .pricing-header h3 {
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+        
+        .pricing-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 35px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-item:hover {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            transform: translateX(5px);
+        }
+        
+        .pricing-item:last-child {
+            border-bottom: none;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            color: #1a202c;
+            flex: 1;
+            font-size: 1.1em;
+        }
+        
+        .service-price {
+            font-weight: 700;
+            color: #10b981;
+            font-size: 1.3em;
+        }
+
+        .additional-services {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+            box-shadow: 0 12px 35px rgba(245, 158, 11, 0.3);
+        }
+
+        .additional-services h3 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .additional-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-weight: 500;
+        }
+
+        .additional-item:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 35px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .contact-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .contact-section p {
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 12px;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .whatsapp-button {
+            background: linear-gradient(135deg, #25d366 0%, #22c55e 100%);
+            color: white;
+        }
+
+        .whatsapp-button:hover {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .quote-button {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .quote-button:hover {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        }
+
+        .guarantee-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.3);
+        }
+
+        .guarantee-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .guarantee-box p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        @media print {
+            body { 
+                background: white; 
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.2em;
+            }
+            .content {
+                padding: 40px 25px;
+            }
+            .header {
+                padding: 40px 25px;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid,
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            .process-step {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            .process-step::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .section h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="logo">⚡ Alpha Schema Web Design</h1>
+            <p class="tagline">WordPress & Elementor | Soluciones Web de Alto Rendimiento</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="highlight-box">
+                    <h2>🎯 Quiénes Somos</h2>
+                    <p>En <strong>Alpha Schema Web Design</strong>, somos especialistas en crear experiencias digitales excepcionales que transforman negocios. Combinamos diseño innovador con tecnología avanzada para desarrollar sitios web que no solo se ven increíbles, sino que también generan resultados medibles para nuestros clientes.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 Nuestra Trayectoria</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Proyectos Exitosos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Países de Operación</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Satisfacción Cliente</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌟 Proyectos Destacados</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-name">🎬 Polimedios.com</div>
+                        <div class="project-location">📍 Guayaquil, Ecuador · Agencia de Marketing</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-name">🏝️ TocToc.ky</div>
+                        <div class="project-location">📍 Islas Caimán · Agencia de Marketing</div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-name">📈 MarketingDesign_vzla</div>
+                        <div class="project-location">📍 Ciudad Ojeda · Agencia de Marketing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🚀 Stack Tecnológico</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">🌐</div>
+                        <div class="tech-name">WordPress</div>
+                        <div class="tech-description">CMS más poderoso del mundo</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🎨</div>
+                        <div class="tech-name">Elementor Pro</div>
+                        <div class="tech-description">Constructor visual avanzado</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🔍</div>
+                        <div class="tech-name">Yoast SEO</div>
+                        <div class="tech-description">Optimización SEO integral</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">⚡</div>
+                        <div class="tech-name">Performance</div>
+                        <div class="tech-description">Optimización WebP & Velocidad</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🛡️</div>
+                        <div class="tech-name">Seguridad</div>
+                        <div class="tech-description">Protección multicapa</div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">📱</div>
+                        <div class="tech-name">Responsive</div>
+                        <div class="tech-description">Diseño móvil perfecto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>⚡ Nuestro Proceso Alpha</h2>
+                <div class="process-timeline">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">🎯 Discovery & Estrategia</div>
+                            <div class="step-description">
+                                Análisis profundo de tu negocio, competencia y audiencia objetivo. Establecemos el roadmap completo del proyecto con entregables específicos y cronograma detallado.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">🎨 Diseño UX/UI Premium</div>
+                            <div class="step-description">
+                                Creación de diseños únicos con Elementor Pro, selección de paleta de colores psicológicamente efectiva, tipografías premium y elementos gráficos de alto impacto. Prototipado responsivo para todos los dispositivos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">⚙️ Desarrollo & Integración</div>
+                            <div class="step-description">
+                                Desarrollo técnico avanzado con WordPress optimizado, configuración de Elementor Pro, integración de APIs, formularios inteligentes, sistemas de seguridad multicapa y configuración de analytics avanzados.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">📝 Content & Performance</div>
+                            <div class="step-description">
+                                Implementación de contenido optimizado, compresión avanzada de imágenes a WebP, configuración completa de Yoast SEO, estructura de enlaces internos y optimización de Core Web Vitals para máximo rendimiento.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">🔍 SEO & Optimización</div>
+                            <div class="step-description">
+                                Implementación técnica de SEO avanzado, schema markup personalizado, optimización de velocidad de carga (<3 segundos), configuración de meta tags dinámicos y estrategia de linkbuilding interno.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">🧪 Testing & QA</div>
+                            <div class="step-description">
+                                Testing exhaustivo en múltiples dispositivos y navegadores, auditoría de rendimiento con Google PageSpeed, pruebas de usabilidad, corrección de bugs y optimización final pre-lanzamiento.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <div class="step-title">🚀 Launch & Training</div>
+                            <div class="step-description">
+                                Migración profesional al servidor de producción, configuración de SSL, capacitación completa del equipo cliente, entrega de documentación técnica y configuración de monitoreo continuo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💎 Servicios Premium</h2>
+                <div class="pricing-table">
+                    <div class="pricing-header">
+                        <h3>🎯 Servicios de Desarrollo Web</h3>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">🚀 Landing Page</div>
+                        <div class="service-price">$200</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">📄 Páginas Informativas</div>
+                        <div class="service-price">$250</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">📝 Páginas Informativas + Blog</div>
+                        <div class="service-price">$270</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">📋 Páginas de Catálogo</div>
+                        <div class="service-price">$300</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">🛒 WooCommerce</div>
+                        <div class="service-price">$400*</div>
+                    </div>
+                    <div class="pricing-item">
+                        <div class="service-name">🔧 Mantenimiento Web (SEO + Rendimiento)</div>
+                        <div class="service-price">$160</div>
+                    </div>
+                </div>
+
+                <div class="additional-services">
+                    <h3>🌐 Servicios Complementarios</h3>
+                    <div class="additional-item">
+                        <span>🌐 Hosting Anual</span>
+                        <span>$100/año</span>
+                    </div>
+                    <div class="additional-item">
+                        <span>🔗 Dominio Web</span>
+                        <span>Consultar disponibilidad y precio</span>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: center;">
+                    <small style="color: rgba(255,255,255,0.9);">* El precio de WooCommerce varía según la cantidad de productos a cargar</small>
+                </div>
+            </div>
+
+            <div class="guarantee-box">
+                <h3>✅ Garantía Alpha Schema</h3>
+                <p>30 días de garantía completa post-lanzamiento · Soporte técnico incluido · Capacitación sin costo adicional</p>
+            </div>
+
+            <div class="contact-section">
+                <h3>🚀 ¿Listo para Transformar tu Presencia Digital?</h3>
+                <p>Únete a más de 150 empresas que han confiado en Alpha Schema Web Design para llevar su negocio al siguiente nivel digital.</p>
+                
+                <a href="#" class="cta-button whatsapp-button">💬 Consulta WhatsApp</a>
+                <a href="#" class="cta-button quote-button">📊 Solicitar Cotización</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
